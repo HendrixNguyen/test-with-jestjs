@@ -1,3 +1,5 @@
-export class MatchManager {
+import { EventEmitter } from 'events';
+
+export class MatchManager extends EventEmitter {
 
 }
