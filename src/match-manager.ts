@@ -65,4 +65,22 @@ export class MatchManager extends EventEmitter {
 
     return room;
   }
+
+  public async requestAsync(user: User): Promise<Room> {
+    return new Promise(done => {
+      // Chờ
+      setTimeout(() => {
+        // Match phòng
+        const room = this.request(user);
+
+        // Nếu là thành viên cuối
+        if (room.isCompleted) {
+          return done(room);
+        }
+
+        // Chờ được match
+        room.subscribe({ complete: () => done(room) });
+      }, 3000 + 7000 * Math.random()); // Random trong khoảng từ 3 tới 10s
+    });
+  }
 }
